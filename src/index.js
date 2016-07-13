@@ -5,13 +5,13 @@
     } else if (typeof(module) !== 'undefined' && module.exports) {
         module.exports = factory();
     } else {
-        var _previousRoot = root.WiLex;
+        var _previousRoot = root.WiTex;
         var self = factory();
         self.noConflict = function() {
-            root.WiLex = _previousRoot;
+            root.WiTex = _previousRoot;
             return self;
         };
-        root.WiLex = self;
+        root.WiTex = self;
     }
 }(this, function() {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
@@ -37,7 +37,7 @@
             return fBound;
         };
     }
-    var wilex = null;
+    var wiTex = null;
     var DONOTHING = function() {};
     var merge = function(dst, src) {
         for (var id in src) {
@@ -127,28 +127,28 @@
         onReady: DONOTHING
     };
 
-    function WiLex(opts) {
+    function WiTex(opts) {
         this.opts = merge(defaults, opts);
         this.isReady = false;
         this.queue = [];
         this.init();
     }
 
-    WiLex.prototype.init = function() {
+    WiTex.prototype.init = function() {
         var main = this.opts.main + '?config=' + this.opts.config;
         loader.js(main, {
             onload: this.configMathjax.bind(this),
             onerror: function() {
-                console.log('error');
+                // TODO error handler
             }
         });
     }
 
-    WiLex.prototype.config = function(config) {
+    WiTex.prototype.config = function(config) {
         this.MathJax.Hub.Config(config);
     }
 
-    WiLex.prototype.configMathjax = function() {
+    WiTex.prototype.configMathjax = function() {
         this.MathJax = MathJax;
         this.MathJax.Hub.Config(this.opts.mathjax);
         this.opts.onReady();
@@ -156,7 +156,7 @@
         this.render();
     }
 
-    WiLex.prototype.push = function(text, callback) {
+    WiTex.prototype.push = function(text, callback) {
         this.queue.push({
             text: text,
             callback: callback
@@ -168,7 +168,7 @@
         }
     }
 
-    WiLex.prototype.render = function() {
+    WiTex.prototype.render = function() {
         var that = this;
         if (!this.queue.length) {
             return;
@@ -179,7 +179,7 @@
         this._render(_q, this.render.bind(this));
     }
 
-    WiLex.prototype._render = function(obj, callback) {
+    WiTex.prototype._render = function(obj, callback) {
         if (obj.callback) {
             var wrapper = document.createElement("div");
             wrapper.innerHTML = obj.text;
@@ -192,8 +192,11 @@
                 });
             });
         } else {
-            console.log('obj.text', obj.text)
-            this.MathJax.Hub.Queue(['Typeset', MathJax.Hub, obj.text]);
+            var elem = document.getElementById(obj.text);
+            elem.style.visibility = 'hidden';
+            this.MathJax.Hub.Queue(['Typeset', MathJax.Hub, elem, function() {
+                elem.style.visibility = '';
+            }]);
         }
 
         callback();
@@ -201,17 +204,17 @@
 
     var wi = {
         init: function(opts) {
-            if (!wilex) {
-                wilex = new WiLex(opts);
+            if (!wiTex) {
+                wiTex = new WiTex(opts);
             }
         },
         config: function(conf) {
-            wilex.config(conf);
+            wiTex.config(conf);
         },
         render: function(text, callback) {
-            !wilex && wi.init();
+            !wiTex && wi.init();
 
-            wilex.push(text, callback);
+            wiTex.push(text, callback);
         }
     }
 
