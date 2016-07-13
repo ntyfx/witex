@@ -5,12 +5,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>WiLex - simple demo</title>
+    <title>WiTex - simple demo</title>
     <style>
-        textarea{
+        body {
+            font-family: 'PingFang SC', 'HanHei SC', 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 14px;
+            line-height: 2em;
+            width: 720px;
+            margin: 0 auto;
+            padding: 40px 0 80px 0;
+        }
+        code{
+            font-family: 'Consolas', 'Courier New';
+        }
+        .code, .result{
+            color: #f14382;
+            font-weight: bold;
+        }
+        pre{
+            border-top: 1px dashed #f0f0f0;
+            border-bottom: 1px dashed #f0f0f0;
+            overflow-x: scroll;
+        }
+        textarea {
             width: 100%;
             height: 200px;
+            margin: 0;
+            padding: 0;
             border: 1px solid #bbb;
+            font-family: 'Consolas', 'Courier New';
+            border: 1px solid #ebebeb;
         }
     </style>
     <script src="../../src/index.js"></script>
@@ -18,12 +43,22 @@
 
 <body>
     <h2>默认不会render：</h2>
-    <p id="first"> $\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$</p>
-    <h2>获取render之后的结果</h2>
-    <textarea id="second"></textarea>
-    <h2>Render 指定ID内的文本</h2>
-    <p id="third">$\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$</p>
-    <script src="./index.js"></script>
+    <code id="first"> $\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$</code>
+            <h2>获取render之后的结果</h2>
+            <code class="code">code:</code><pre>
+var testText = '由$x = \\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}$题意知直线$l$的斜率存在，设直线$l$的方程为$y=kx+2$';
+WiTex.render(testText, function(result) {
+    document.getElementById('second').value = result.html;
+});
+            </pre>
+            <code class="result">result:</code>
+            <textarea id="second"></textarea>
+            <h2>Render 指定<code>ID</code>内的文本</h2>
+            <code class="code">html:</code><pre>&lt;p id="third"&gt;$\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$&lt;/p&gt;</pre>
+            <code class="code">code:</code><pre>WiTex.render('third');</pre>
+            <code class="result">result:</code>
+            <p id="third">$\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$</p>
+            <script src="./index.js"></script>
 </body>
 
 </html>
