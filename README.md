@@ -32,7 +32,7 @@ php -S 0.0.0.0:8000
 
 2. 访问 [http://127.0.0.1:8000/example/simple/index.html](http://127.0.0.1:8000/example/simple/index.html)
 
-## [TODO]Run Webpack Example
+## Run Webpack Example
 
 1. 安装依赖
 
@@ -43,5 +43,11 @@ npm install
 2. 开启服务
 
 ```
-npm start
+npm run webpack-example-dev
+```
+
+3. 本地访问
+
+```
+http://127.0.0.1:3000
 ```

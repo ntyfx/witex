@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <script src="./dist/index.js"></script>
 </head>
 
 <body>
@@ -22,9 +21,9 @@
 
     <section class="main-content">
         <h2>Default: <code>skipStartupTypeset: <span class="red">true</span></code></h2>
-        <code id="first"> $\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$</code>
+        <code id="first"> $\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$</code>
         <h2>get render result with <code class="red">callback</code></h2>
-        <code class="code">code:</code><pre>var testText = '$\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$';
+        <code class="code">code:</code><pre>var testText = '$\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$';
 
 WiTex.render(testText, function(result) {
     document.getElementById('second').value = result.html;
@@ -32,17 +31,15 @@ WiTex.render(testText, function(result) {
         <code class="result">result:</code>
         <textarea id="second"></textarea>
         <h2>render Element by <code class="red">id</code></h2>
-        <code class="code">html:</code><pre>&lt;p id="third"&gt;$\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$&lt;/p&gt;</pre>
+        <code class="code">html:</code><pre>&lt;p id="third"&gt;$\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$&lt;/p&gt;</pre>
         <code class="code">code:</code><pre>WiTex.render('third');</pre>
         <code class="result">result:</code>
-        <p id="third">$\therefore 0
-            < S\leqslant \frac{\sqrt{2}}{2}$</p>
-                <p class="more"><a href="./dist/example/webpack/index.html">example with webpack</a></p>
-                <script src="./example/simple/index.js"></script>
+        <p id="third">$\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$</p>
 
-                <footer class="site-footer">
-                    <span class="site-footer-owner"><a href="https://github.com/ntyfx/witex">Witex</a> is maintained by <a href="https://github.com/ntyfx">ntyfx</a>.</span>
-                </footer>
+        <footer class="site-footer">
+            <span class="site-footer-owner"><a href="https://github.com/ntyfx/witex">Witex</a> is maintained by <a href="https://github.com/ntyfx">ntyfx</a>.</span>
+        </footer>
+
     </section>
 
 

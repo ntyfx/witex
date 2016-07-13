@@ -370,3 +370,7 @@ textarea {
 h2{
     font-size: 1em;
 }
+
+.more{
+    text-align: right;
+}
