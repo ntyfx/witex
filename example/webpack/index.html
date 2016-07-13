@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <title>WiTeX by ntyfx</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../../../stylesheets/normalize.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../../../stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../../../stylesheets/github-light.css" media="screen">
 </head>
 
 <body>
@@ -21,11 +21,13 @@
 
     <section class="main-content">
         <h2>Default: <code>skipStartupTypeset: <span class="red">true</span></code></h2>
-        <code id="first"> $\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$</code>
+        <code id="first"> $\therefore 0 &lt; S\leqslant \frac{\sqrt{2}}{2}$</code>
         <h2>get render result with <code class="red">callback</code></h2>
-        <code class="code">code:</code><pre>var testText = '$\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$';
+        <code class="code">code:</code><pre>import WiTex from '../../src/';
 
-WiTex.render(testText, function(result) {
+var testText = '$\therefore 0 &lt; S\leqslant \frac{\sqrt{2}}{2}$';
+
+WiTex.render(testText, result => {
     document.getElementById('second').value = result.html;
 });</pre>
         <code class="result">result:</code>
@@ -34,7 +36,7 @@ WiTex.render(testText, function(result) {
         <code class="code">html:</code><pre>&lt;p id="third"&gt;$\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$&lt;/p&gt;</pre>
         <code class="code">code:</code><pre>WiTex.render('third');</pre>
         <code class="result">result:</code>
-        <p id="third">$\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$</p>
+        <p id="third">$\therefore 0 &lt; S\leqslant \frac{\sqrt{2}}{2}$</p>
 
         <footer class="site-footer">
             <span class="site-footer-owner"><a href="https://github.com/ntyfx/witex">Witex</a> is maintained by <a href="https://github.com/ntyfx">ntyfx</a>.</span>
