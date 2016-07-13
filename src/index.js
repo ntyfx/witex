@@ -97,7 +97,7 @@
     };
 
     var defaults = {
-        main: '../mathjax/MathJax.js',
+        main: 'http://cdn.bootcss.com/mathjax/2.6.1/MathJax.js',
         config: 'TeX-AMS_SVG',
 
         mathjax: {
