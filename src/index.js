@@ -1,9 +1,9 @@
 /*! <% NAME %>@v<% VERSION %> */
 (function(root, factory) {
     'use strict';
-    if (typeof define === 'function' && define.amd) {
+    if ((typeof define === 'function') && define.amd) {
         define(factory);
-    } else if (typeof(module) !== 'undefined' && module.exports) {
+    } else if (typeof module !== 'undefined' && module.exports) {
         module.exports = factory();
     } else {
         var _previousRoot = root.WiTex;
@@ -197,6 +197,7 @@
             },
             tex2jax: {
                 inlineMath: [
+                    ['`', '`'],
                     ['$', '$'],
                     ["\\(", "\\)"]
                 ],
@@ -242,6 +243,7 @@
             text: text,
             callback: callback
         });
+
         if (!this.isReady) {
             return false;
         } else {
@@ -250,7 +252,6 @@
     };
 
     WiTex.prototype.render = function() {
-        var that = this;
         if (!this.queue.length) {
             return;
         }
@@ -267,17 +268,12 @@
             document.getElementsByTagName('body')[0].appendChild(wrapper);
             this.MathJax.Hub.Queue(['Typeset', MathJax.Hub, wrapper]);
             this.MathJax.Hub.Queue(function(a) {
-                var mjOut = wrapper.getElementsByTagName("svg")[0];
-                var html = '';
-                if (mjOut) {
-                    mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-                }
-                html = wrapper.innerHTML;
+                var html = wrapper.innerHTML;
+
                 try {
                     wrapper.remove();
-                } catch (err) {
+                } catch (err) {}
 
-                }
                 obj.callback({
                     html: html
                 });
