@@ -250,12 +250,22 @@
         if (obj.callback) {
             var wrapper = document.createElement("div");
             wrapper.innerHTML = obj.text;
+            document.getElementsByTagName('body')[0].appendChild(wrapper);
             this.MathJax.Hub.Queue(['Typeset', MathJax.Hub, wrapper]);
             this.MathJax.Hub.Queue(function(a) {
                 var mjOut = wrapper.getElementsByTagName("svg")[0];
-                mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                var html = '';
+                if (mjOut) {
+                    mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                }
+                html = wrapper.innerHTML;
+                try {
+                    wrapper.remove();
+                } catch (err) {
+                    
+                }
                 obj.callback({
-                    html: wrapper.outerHTML
+                    html: html
                 });
             });
         } else {

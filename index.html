@@ -24,13 +24,13 @@
         <h2>Default: <code>skipStartupTypeset: <span class="red">true</span></code></h2>
         <code id="first"> $\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$</code>
         <h2>get render result with <code class="red">callback</code></h2>
-        <code class="code">code:</code><pre>var testText = '$\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$';
+        <code class="code">code:</code><pre>var testText = '$\\therefore 0 < S\\leqslant \\frac{\\sqrt{2}}{2}$';
 
 WiTex.render(testText, function(result) {
-    document.getElementById('second').value = result.html;
+    document.getElementById('second').innerHTML = result.html;
 });</pre>
         <code class="result">result:</code>
-        <textarea id="second"></textarea>
+        <div id="second"></div>
         <h2>render Element by <code class="red">id</code></h2>
         <code class="code">html:</code><pre>&lt;p id="third"&gt;$\therefore 0 < S\leqslant \frac{\sqrt{2}}{2}$&lt;/p&gt;</pre>
         <code class="code">code:</code><pre>WiTex.render('third');</pre>
