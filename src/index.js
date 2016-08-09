@@ -38,6 +38,13 @@
             return fBound;
         };
     }
+    if (!('remove' in Element.prototype)) {
+        Element.prototype.remove = function() {
+            if (this.parentNode) {
+                this.parentNode.removeChild(this);
+            }
+        };
+    }
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
     // Production steps of ECMA-262, Edition 5, 15.4.4.14
     // Reference: http://es5.github.io/#x15.4.4.14
@@ -131,7 +138,7 @@
         }
 
         return obj;
-    }
+    };
 
     var loader = {
         js: function(url, opt) {
@@ -164,7 +171,7 @@
     };
 
     var defaults = {
-        main: '//cdn.bootcss.com/mathjax/2.6.1/MathJax.js',
+        main: '//static.xueba100.com/public/mathjax/v2.6.1/MathJax.js',
         config: 'TeX-AMS_SVG',
 
         mathjax: {
@@ -173,6 +180,13 @@
             showMathMenu: false,
             showMathMenuMSIE: false,
             messageStyle: 'none',
+            extensions: [],
+            AssistiveMML: {
+                disabled: true
+            },
+            "fast-preview": {
+                disabled: true
+            },
             SVG: {
                 linebreaks: {
                     automatic: true,
@@ -209,11 +223,11 @@
                 // TODO error handler
             }
         });
-    }
+    };
 
     WiTex.prototype.config = function(config) {
         this.MathJax.Hub.Config(config);
-    }
+    };
 
     WiTex.prototype.configMathjax = function() {
         this.MathJax = MathJax;
@@ -221,7 +235,7 @@
         this.opts.onReady();
         this.isReady = true;
         this.render();
-    }
+    };
 
     WiTex.prototype.push = function(text, callback) {
         this.queue.push({
@@ -233,7 +247,7 @@
         } else {
             this.render();
         }
-    }
+    };
 
     WiTex.prototype.render = function() {
         var that = this;
@@ -244,7 +258,7 @@
         var _q = this.queue.shift();
 
         this._render(_q, this.render.bind(this));
-    }
+    };
 
     WiTex.prototype._render = function(obj, callback) {
         if (obj.callback) {
@@ -262,7 +276,7 @@
                 try {
                     wrapper.remove();
                 } catch (err) {
-                    
+
                 }
                 obj.callback({
                     html: html
@@ -277,7 +291,7 @@
         }
 
         callback();
-    }
+    };
 
     var wi = {
         init: function(opts) {
@@ -293,7 +307,7 @@
 
             wiTex.push(text, callback);
         }
-    }
+    };
 
     return wi;
 }));
