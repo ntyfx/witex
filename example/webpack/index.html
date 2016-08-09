@@ -28,10 +28,10 @@
 var testText = '$\therefore 0 &lt; S\leqslant \frac{\sqrt{2}}{2}$';
 
 WiTex.render(testText, result => {
-    document.getElementById('second').value = result.html;
+    document.getElementById('second').innerHTML = result.html;
 });</pre>
         <code class="result">result:</code>
-        <textarea id="second"></textarea>
+        <div id="second"></div>
         <h2>render Element by <code class="red">id</code></h2>
         <code class="code">html:</code><pre>&lt;p id="third"&gt;$\therefore 0 &gt; S\leqslant \frac{\sqrt{2}}{2}$&lt;/p&gt;</pre>
         <code class="code">code:</code><pre>WiTex.render('third');</pre>
