@@ -5,3 +5,4 @@ node_modules
 # Logs
 logs
 *.log
+.vscode
