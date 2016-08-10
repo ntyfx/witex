@@ -5,7 +5,7 @@
     "main": "src/index.js",
     "scripts": {
         "build": "gulp uglify",
-        "release": "rm -rf ./dist && npm run build && npm run webpack-example && cp ./dist/index.js ../appsh5/libs/witex/",
+        "release": "rm -rf ./dist && npm run build && npm run webpack-example",
         "test": "echo \"Error: no test specified\" && exit 1",
         "webpack-example-dev": "webpack-dev-server --hot --inline --port 3000 --host 0.0.0.0 --config ./example/webpack/webpack.config.js",
         "webpack-example": "webpack --progress  --profile --colors --release --config ./example/webpack/webpack.config.js"
