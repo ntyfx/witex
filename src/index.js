@@ -38,13 +38,6 @@
             return fBound;
         };
     }
-    if (!('remove' in Element.prototype)) {
-        Element.prototype.remove = function() {
-            if (this.parentNode) {
-                this.parentNode.removeChild(this);
-            }
-        };
-    }
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
     // Production steps of ECMA-262, Edition 5, 15.4.4.14
     // Reference: http://es5.github.io/#x15.4.4.14
@@ -270,9 +263,9 @@
             this.MathJax.Hub.Queue(function(a) {
                 var html = wrapper.innerHTML;
 
-                try {
-                    wrapper.remove();
-                } catch (err) {}
+                if (wrapper.parentNode) {
+                    wrapper.parentNode.removeChild(wrapper);
+                }
 
                 obj.callback({
                     html: html
