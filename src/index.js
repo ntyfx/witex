@@ -214,9 +214,7 @@
             },
             tex2jax: {
                 inlineMath: [
-                    ['`', '`'],
-                    ['$', '$'],
-                    ["\\(", "\\)"]
+                    ['`', '`']
                 ],
                 processEscapes: true
             }
@@ -280,6 +278,11 @@
 
     WiTex.prototype._render = function(obj, callback) {
         var elem = obj.text;
+
+        if (!elem.style) {
+            return;
+        }
+
         elem.style.visibility = 'hidden';
         this.MathJax.Hub.Queue(['Typeset', MathJax.Hub, elem, function() {
             elem.style.visibility = '';
