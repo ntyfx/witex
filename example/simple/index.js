@@ -16,3 +16,4 @@ WiTex.render(testText, function(result) {
     document.getElementById('second').innerHTML = result.html;
 });
 WiTex.render('third');
+WiTex.renderBySelector('.main-content .selector');
