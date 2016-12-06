@@ -1,5 +1,5 @@
 /*! <% NAME %>@v<% VERSION %> */
-(function(root, factory) {
+(function (root, factory) {
     'use strict';
     if ((typeof define === 'function') && define.amd) {
         define(factory);
@@ -8,24 +8,24 @@
     } else {
         var _previousRoot = root.WiTex;
         var self = factory();
-        self.noConflict = function() {
+        self.noConflict = function () {
             root.WiTex = _previousRoot;
             return self;
         };
         root.WiTex = self;
     }
-}(this, function() {
+} (this, function () {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
     if (!Function.prototype.bind) {
-        Function.prototype.bind = function(oThis) {
+        Function.prototype.bind = function (oThis) {
             if (typeof this !== "function") {
                 throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
             }
 
             var aArgs = Array.prototype.slice.call(arguments, 1),
                 fToBind = this,
-                fNOP = function() {},
-                fBound = function() {
+                fNOP = function () { },
+                fBound = function () {
                     return fToBind.apply(this instanceof fNOP && oThis ?
                         this :
                         oThis,
@@ -42,7 +42,7 @@
     // Production steps of ECMA-262, Edition 5, 15.4.4.14
     // Reference: http://es5.github.io/#x15.4.4.14
     if (!Array.prototype.indexOf) {
-        Array.prototype.indexOf = function(searchElement, fromIndex) {
+        Array.prototype.indexOf = function (searchElement, fromIndex) {
 
             var k;
 
@@ -101,12 +101,14 @@
                 }
                 k++;
             }
+
             return -1;
         };
     }
+
     var wiTex = null;
-    var DONOTHING = function() {};
-    var merge = function(dst, src) {
+    var DONOTHING = function () { };
+    var merge = function (dst, src) {
         for (var id in src) {
             if (src.hasOwnProperty(id)) {
                 if (typeof src[id] === 'object' && !(src[id] instanceof Array) && (typeof dst[id] === 'object' || typeof dst[id] === 'function')) {
@@ -116,16 +118,19 @@
                 }
             }
         }
+
         return dst;
     };
 
-    var _appendToHead = function(obj, isRemove) {
+    var _appendToHead = function (obj, isRemove) {
         var h = document.head || document.getElementsByTagName("head")[0] || document.documentElement;
+
         if (h.firstChild) {
             h.insertBefore(obj, h.firstChild);
         } else {
             h.appendChild(obj);
         }
+
         if (isRemove) {
             h.removeChild(obj);
         }
@@ -134,7 +139,7 @@
     };
 
     var loader = {
-        js: function(url, opt) {
+        js: function (url, opt) {
             opt = merge({
                 charset: 'utf-8',
                 onload: DONOTHING,
@@ -143,12 +148,12 @@
 
             var s = document.createElement('script');
             var t = opt.onload;
-            opt.onload = function() {
+            opt.onload = function () {
                 t.apply(s, arguments);
                 s.onload = s.onreadystatechange = DONOTHING;
             };
             merge(s, opt);
-            s.onreadystatechange = function() {
+            s.onreadystatechange = function () {
                 switch (s.readyState) {
                     case 'loaded':
                     case 'complete':
@@ -164,7 +169,7 @@
     };
 
     var util = {
-        type: function(obj) {
+        type: function (obj) {
             if (obj == null) return String(obj);
 
             var h = {
@@ -179,16 +184,21 @@
             };
 
             var t = Object.prototype.toString.call(obj);
+
             if (t in h) return h[t];
+
             if (t == '[object Object]') t = obj + '';
+
             var arr = t.match(/^\[object (HTML\w+)\]$/);
+
             if (arr) return arr[1];
+
             return 'object';
         }
     };
 
     var defaults = {
-        main: '//static.xueba100.com/public/mathjax/v2.6.1/MathJax.js',
+        main: '//static.xueba100.com/public/mathjax/v2.7.0/MathJax.js',
         config: 'TeX-AMS_SVG',
 
         mathjax: {
@@ -197,7 +207,6 @@
             showMathMenu: false,
             showMathMenuMSIE: false,
             messageStyle: 'none',
-            extensions: [],
             AssistiveMML: {
                 disabled: true
             },
@@ -211,6 +220,9 @@
                 },
                 useFontCache: true,
                 useGlobalCache: false
+            },
+            MathML: {
+                extensions: ["content-mathml.js"]
             },
             tex2jax: {
                 inlineMath: [
@@ -231,21 +243,22 @@
         this.init();
     }
 
-    WiTex.prototype.init = function() {
+    WiTex.prototype.init = function () {
         var main = this.opts.main + '?config=' + this.opts.config;
+
         loader.js(main, {
             onload: this.configMathjax.bind(this),
-            onerror: function() {
+            onerror: function () {
                 // TODO error handler
             }
         });
     };
 
-    WiTex.prototype.config = function(config) {
+    WiTex.prototype.config = function (config) {
         this.MathJax.Hub.Config(config);
     };
 
-    WiTex.prototype.configMathjax = function() {
+    WiTex.prototype.configMathjax = function () {
         this.MathJax = MathJax;
         this.MathJax.Hub.Config(this.opts.mathjax);
         this.opts.onReady();
@@ -253,7 +266,7 @@
         this.render();
     };
 
-    WiTex.prototype.push = function(text, callback) {
+    WiTex.prototype.push = function (text, callback) {
         this.queue.push({
             text: text,
             callback: callback
@@ -266,7 +279,7 @@
         }
     };
 
-    WiTex.prototype.render = function() {
+    WiTex.prototype.render = function () {
         if (!this.queue.length) {
             return;
         }
@@ -276,15 +289,15 @@
         this._render(_q, this.render.bind(this));
     };
 
-    WiTex.prototype._render = function(obj, callback) {
+    WiTex.prototype._render = function (obj, callback) {
         var elem = obj.text;
 
         if (!elem.style) {
-            return;
+            return callback(new Error('参数错误'));
         }
 
         elem.style.visibility = 'hidden';
-        this.MathJax.Hub.Queue(['Typeset', MathJax.Hub, elem, function() {
+        this.MathJax.Hub.Queue(['Typeset', MathJax.Hub, elem, function () {
             elem.style.visibility = '';
             var html = elem.innerHTML;
             obj.callback && obj.callback({
@@ -296,16 +309,17 @@
     };
 
     var wi = {
-        init: function(opts) {
+        init: function (opts) {
             if (!wiTex) {
                 wiTex = new WiTex(opts);
             }
         },
-        config: function(conf) {
+        config: function (conf) {
             wiTex.config(conf);
         },
-        render: function(text, callback) {
+        render: function (text, callback) {
             !wiTex && wi.init();
+
             var cb = callback;
             var elem = null;
 
@@ -313,7 +327,7 @@
                 elem = document.createElement("div");
                 elem.innerHTML = text;
                 document.getElementsByTagName('body')[0].appendChild(elem);
-                cb = function(data) {
+                cb = function (data) {
                     if (elem.parentNode) {
                         elem.parentNode.removeChild(elem);
                     }
@@ -326,7 +340,7 @@
 
             wiTex.push(elem, cb);
         },
-        renderBySelector: function(selector, callback) {
+        renderBySelector: function (selector, callback) {
             !wiTex && wi.init();
 
             if (!selector || typeof selector !== 'string') {
