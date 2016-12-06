@@ -198,7 +198,7 @@
     };
 
     var defaults = {
-        main: '//static.xueba100.com/public/mathjax/v2.6.1/MathJax.js',
+        main: '//static.xueba100.com/public/mathjax/v2.7.0/MathJax.js',
         config: 'TeX-AMS_SVG',
 
         mathjax: {
