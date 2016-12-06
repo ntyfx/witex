@@ -1,4 +1,4 @@
-/*! witex@v1.1.0 */
+/*! witex@v1.1.1 */
 (function (root, factory) {
     'use strict';
     if ((typeof define === 'function') && define.amd) {
